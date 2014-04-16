@@ -3,3 +3,10 @@ Homework: Homework 2.3
 How many products have a voice limit? (That is, have a voice field present in the limits array.)
 
 ANS: 3
+
+
+    db.products.find( { "limits.voice" : { $exists : true } } ).count()
+    
+    OR
+    
+    db.products.find( { "limits.voice" : { $exists : true } } ).pretty()
