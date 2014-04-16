@@ -1,0 +1,61 @@
+Final: Question 1
+
+Problems 1 through 3 are an exercise in running mongod's,replica sets,and an exercise in testing of replica 
+set rollbacks, which can occur when a former primary rejoins a set after it has previously had a failure.
+
+Get the a.sh and a.js files from Download Handout link. Use a.bat instead of a.sh on Windows.
+
+Start a 3 member replica set (with default options for each member, all are peers). (a.sh will start the 
+mongod's for you if you like.)
+
+    $ # if on unix:
+    $ chmod +x a.sh
+    $ ./a.sh
+    
+Then run:
+
+    $ mongo --shell --port 27003 a.js
+    > // ourinit() will initiate the set for us.
+    > // to see its source code type without the parentheses:
+    > ourinit
+    >
+    > // now execute it:
+    > ourinit()
+
+We will now do a test of replica set rollbacks. This is the case where data never reaches a majority of the
+set. We'll test a couple scenarios.
+
+Take a look at the method testRollback() in a.js and what it does. Then, on localhost:27003, with that 
+member primary, run:
+
+    > testRollback()
+
+Note:if 27003 is not primary, make it primary -- using rs.stepDown() (perhaps also rs.freeze()) for example.
+
+At this point the mongod's on 27001 and 27002 are shut down. See the a.js source code. We now solely have 
+our 27003 member running. If you wait a while, it will "step down" as it does not see a majority. 
+Regardless, let's continue, no need to wait. First check that only one mongod is running:
+
+    $ ps -A | grep mongod
+    …
+
+Now, let's restart the two mongod's that are shut down. If you like you can cut and paste the two relevant
+mongod invocations from a.sh.
+
+Now run ps again and verify three are up:
+
+    $ ps -A | grep mongod
+
+Now, we want to see if any data that we attempted to insert isn't there. Go into the shell to any member of 
+the set. Use rs.status() to check state. Be sure the member is "caught up" to the latest optime (if it's a 
+secondary). Also on a secondary you might need to invoke rs.slaveOk() before doing a query.)
+
+Now run:
+
+    > db.foo.find()
+
+to see what data is there after the set recovered from the two outages. How many documents do you have?
+
+
+
+ANS:9
