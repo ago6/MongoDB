@@ -25,3 +25,12 @@ the product's "for" field.
     -Q2 : 12
     -Q3 : No
     ANS: +check+Q3 : Yes  
+    
+    
+    
+    db.products.ensureIndex( { for : 1 } )
+    
+    db.products.find( { for : "ac3" } ).count()
+    
+    db.products.find( { for : "ac3" } ).explain()
+ 
