@@ -1,0 +1,34 @@
+Homework: Homework 5.1
+
+Start a mongod server instance (if you still have your replica set from week 4 running, that would work too).
+
+Next, download week5.js and run:
+
+    mongo --shell localhost/week5 week5.js
+    > homework.init()
+    >
+Assume our app development team for a project would like to speed up the following query:
+
+    db.sensor_readings.find( { 
+     tstamp : { 
+       $gte : ISODate("2012-08-01"), 
+       $lte :  ISODate("2012-09-01") 
+     },
+     active : true
+    } ).limit(3)
+    
+Run the query, and explain(). Then create an index to speed up the query (with ensureIndex()). Then run the 
+explain() again and see that things have improved. When you have a solution run:
+
+    homework.a()
+    
+and enter the result below.
+
+Note: if you would like to try different indexes, you can use db.sensor_readings.dropIndexes() to drop your 
+old index before creating a new one. (For this problem you will only need one index beyond the _id index 
+which is present by default.)
+
+Note: we are optimizing for the query when the limit clause is present. So be use to include limit when you 
+call explain.
+
+ANS: 6
