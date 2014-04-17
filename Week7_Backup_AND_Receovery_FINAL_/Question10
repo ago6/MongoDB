@@ -1,0 +1,18 @@
+Final: Question 10
+
+Now, for our temporary datamart, once again from a mongo shell connected to the cluster:
+
+
+1) create an index {N2:1,mutant:1} for the snps.elegans collection. 
+2) now run:
+mongos> db.elegans.find({N2:"T",mutant:"A"}).limit(5).explain()
+Based on the explain output, which of the following statements below are true?
+
+
+      --No shards are queried.
+      --1 shard is queried.
+      ANS:+check+ 2 shards are queried.
+      --5 documents are scanned.
+      --7 documents are scanned.
+      ANS:+check+ 10 documents are scanned.
+      --Thousands of documents are scanned.
