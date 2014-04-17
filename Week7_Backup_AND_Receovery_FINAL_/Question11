@@ -1,0 +1,13 @@
+Final: Question 11
+
+Download problem11.json from the Download Handout link. Import it into a mongo database (the cluster from 
+the last problem will work fine but an empty configuration will work as well):
+
+      mongoimport -d snps -c problem11 problem11.json
+
+Now, using the aggregation framework, answer the question: how many distinct N2/mutant pairs are there in 
+this collection? (Assume the values as case sensitive - so 'a' and 'A' are different values for "distinctness"
+purposes.)
+
+
+ANS: 31
